@@ -30,7 +30,7 @@ button {
 .terms-body {
   height: 545px;
   align-items: center;
-  margin-left: -85px;
+  margin-left: -60px;
   padding: 0;
   background: #5F9EA0;
   display: flex;
@@ -200,7 +200,7 @@ button {
 
 .left-side-nav {
   width: 50%;
-  height: 100vh;
+  height: 110vh;
   background: url('https://i.imgur.com/tYPE5Wv.png');
   background-repeat: no-repeat;
 }
@@ -384,3 +384,55 @@ input {
   box-shadow: 3px 3px 10px 6px rgba(0, 0, 0, 0.06) !important;
 }
 
+
+.language-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: -30px;
+}
+
+
+.error-message {
+  font-size: 12px;
+  color: red;
+  width: 300px;
+  text-align: center;
+  margin-left: 20px;
+}
+
+.right-side-nav {
+  margin-left: -40px;
+}
+
+.btn-next {
+  background-color: #002D62 !important;
+  color: #5F9EA0 !important;
+  border-radius: 5px !important;
+}
+
+.btn-prev {
+  background-color: #5F9EA0 !important;
+  color: #002D62 !important;
+  border-radius: 5px !important;
+}
+
+.btn-next:hover {
+    border: 4px solid #5F9EA0 !important;
+}
+
+.btn-prev:hover {
+  border: 4px solid #002D62 !important;
+}
+
+.spa-btn {
+  background: url('https://i.imgur.com/mguyA7w.png');
+  height: 40px;
+  width: 70px;
+}
+
+.eng-btn {
+  background: url('https://i.imgur.com/SR8o28w.jpg');
+  height: 40px;
+  width: 70px;
+}

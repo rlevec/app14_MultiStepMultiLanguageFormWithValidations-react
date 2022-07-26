@@ -2,13 +2,13 @@ import React, {useState} from 'react'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faCaretDown} from '@fortawesome/free-solid-svg-icons'
 
-const MonthDropdown = ({selectedMonth, setSelectedMonth}) => {
+const MonthDropdown = ({selectedMonth, setSelectedMonth, spanish, english}) => {
   const [isActive, setIsActive] = useState(false)
   const options = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
 
   return (
     <div className='dropdown dropdown-style'>
-      <h4 className='dropdown-header header-label'>EXPIRATION MM</h4>
+      <h4 className='dropdown-header header-label'>{english && 'Expiration Month'}{spanish && 'Mes de Expiración'}</h4>
         <div className='dropdown-btn' onClick={() => setIsActive(!isActive)}>{selectedMonth}
           <span>
             <FontAwesomeIcon icon={faCaretDown}></FontAwesomeIcon>

@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import {terms} from './termsOfService'
+import { spanishTerms } from './termsOfSpanish'
 import GenderDropdown from './GenderDropdown'
 import CountryDropdown from './CountryDropdown'
 import MonthDropdown from './MonthDropdown'
 import YearDropdown from './YearDropdown'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {} from '@fortawesome/free-solid-svg-icons'
 
 
 const App = () => {
 
+  const [english, setEnglish] = useState(true)
+  const [spanish, setSpanish] = useState(false)
   const [selectedGender, setSelectedGender] = useState('')
   const [selectedCountry, setSelectedCountry] = useState('')
   const [selectedMonth, setSelectedMonth] = useState('')
@@ -50,6 +52,16 @@ const App = () => {
     setIsSubmit(true)
   }
 
+  const handleEnglish = () => {
+    setEnglish(true)
+    setSpanish(false)
+  }
+
+  const handleSpanish = () => {
+    setSpanish(true)
+    setEnglish(false)
+  }
+
   
 
   const validate = (values) => {
@@ -59,41 +71,63 @@ const App = () => {
     const emailRegex = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/
     const usernameRegex = /^([a-z0-9]|[-._](?![-._])){4,20}$/
+    const cvnRegex = /\d{3}/
+    const creditCardRegex = /^3[47][0-9]{13}$/
+    const phoneRegex = /(\+|00)(297|93|244|1264|358|355|376|971|54|374|1684|1268|61|43|994|257|32|229|226|880|359|973|1242|387|590|375|501|1441|591|55|1246|673|975|267|236|1|61|41|56|86|225|237|243|242|682|57|269|238|506|53|5999|61|1345|357|420|49|253|1767|45|1809|1829|1849|213|593|20|291|212|34|372|251|358|679|500|33|298|691|241|44|995|44|233|350|224|590|220|245|240|30|1473|299|502|594|1671|592|852|504|385|509|36|62|44|91|246|353|98|964|354|972|39|1876|44|962|81|76|77|254|996|855|686|1869|82|383|965|856|961|231|218|1758|423|94|266|370|352|371|853|590|212|377|373|261|960|52|692|389|223|356|95|382|976|1670|258|222|1664|596|230|265|60|262|264|687|227|672|234|505|683|31|47|977|674|64|968|92|507|64|51|63|680|675|48|1787|1939|850|351|595|970|689|974|262|40|7|250|966|249|221|65|500|4779|677|232|503|378|252|508|381|211|239|597|421|386|46|268|1721|248|963|1649|235|228|66|992|690|993|670|676|1868|216|90|688|886|255|256|380|598|1|998|3906698|379|1784|58|1284|1340|84|678|681|685|967|27|260|263)(9[976]\d|8[987530]\d|6[987]\d|5[90]\d|42\d|3[875]\d|2[98654321]\d|9[8543210]|8[6421]|6[6543210]|5[87654321]|4[987654310]|3[9643210]|2[70]|7|1)\d{4,20}$/
+
     if(!values.firstName) {
-      errors.firstName = 'First Name is required'
+      {errors.firstName = english && 'First Name is required'}{errors.firstName = spanish && 'Se Requiere el Primer Nombre'}
     }
     else if(!firstNameRegex.test(values.firstName)) {
-      errors.firstName = 'This is not a valid first name (only alphabet characters)'
+      {errors.firstName = english && 'This is not a valid first name (only alphabet characters)'}{errors.firstName = spanish && 'Este no es un nombre válido (solo caracteres alfabéticos)'}
     }
     if(!values.lastName) {
-      errors.lastName = 'Last Name is required'
+      {errors.lastName = english && 'Last Name is required'}{errors.lastName = spanish && 'Se requiere apellido'}
     }
     else if(!lastNameRegex.test(values.firstName)) {
-      errors.lastName = 'This is not a valid first name (only alphabet characters)'
+      {errors.lastName = english && 'This is not a valid first name (only alphabet characters)'}{errors.lastName = spanish && 'Este no es un nombre válido (solo caracteres alfabéticos)'}
     }
     if(!values.email) {
-      errors.email = 'Email is required'
+      {errors.email = english && 'Email is required'}{errors.email = spanish && 'Correo Electronico es Requerido'}
     }
     else if(!emailRegex.test(values.email)) {
-      errors.email = 'This is not a valid email format'
+      {errors.email = english && 'This is not a valid email format'}{errors.email = spanish && 'Este no es un formato de correo electrónico válido'}
     }
     if(!values.password) {
-      errors.password = 'Password is required'
+      {errors.password = english && 'Password is required'}{errors.password = spanish && 'Se Requiere Contraseña'}
     }
     else if(!passwordRegex.test(values.password)) {
-      errors.password = 'Minimum eight and maximum 20 characters, at least one uppercase letter, one lowercase letter, one number and one special character'
+      {errors.password = english && '8-20 characters, at least one uppercase letter, one lowercase letter, one number and one special character'}{errors.password = spanish && '8-20 caracteres, al menos una letra mayúscula, una letra minúscula, un número y un carácter especial'}
     }
     if(!values.confirmPassword) {
-      errors.confirmPassword = 'Password is required'
+      {errors.password = english && 'Password is required'}{errors.password = spanish && 'Se Requiere Contraseña'}
     }
     else if((values.password !== values.confirmPassword)) {
-      errors.confirmPassword = 'Passwords do not match'
+      {errors.confirmPassword = english && 'Passwords do not match'}{errors.confirmPassword = spanish && 'Las contraseñas no coinciden'}
     }
     if(!values.username) {
-      errors.username = 'Username is required'
+      {errors.username = english && 'Username is required'}{errors.username = spanish && 'Se requiere nombre de usuario'}
     }
     else if(!usernameRegex.test(values.username)) {
-      errors.username = 'Must have between 4 and 20 characters, must not contain anything but letters a-z, digits 0-9 and special characters -._, the special characters -._ must not be used successively in order to avoid confusion and the field must not contain whitespaces'
+      {errors.username = english && '4-20 characters, nothing but letters a-z, digits 0-9 and special characters -._, the special characters must not be used successively and no whitespaces'}{errors.username = spanish && '4-20 caracteres, nada más que letras a-z, dígitos 0-9 y caracteres especiales -._, los caracteres especiales no deben usarse sucesivamente y sin espacios en blanco'}
+    }
+    if(!values.cvn) {
+      {errors.cvn = english && 'CVC is required'}{errors.cvn = spanish && 'Se requiere CVC'}
+    }
+    else if(!cvnRegex.test(values.cvn)) {
+      {errors.cvn = english && '3 digits'} {errors.cvn = spanish && '3 dígitos'}
+    }
+    if(!values.creditCard) {
+      {errors.creditCard = english && 'Credit Card number is required'}{errors.creditCard = spanish && 'Se requiere número de tarjeta de crédito'}
+    }
+    else if(!creditCardRegex.test(values.creditCard)){
+      {errors.creditCard = english && 'Not a valid Credit Card number'}{errors.creditCard = spanish && 'No es un número de tarjeta de crédito válido'}
+    }
+    if(!values.phone) {
+      {errors.phone = english && 'Phone Number is required'}{errors.phone = spanish && 'Se requiere número de teléfono'}
+    }
+    else if(!phoneRegex.test(values.phone)){
+      {errors.phone = english && 'Not a valid Phone Number (00385919567919 Croatia example)'}{errors.phone = spanish && 'No es un número de teléfono válido (0034912345678 ejemplo de España)'}
     }
     return errors
   }
@@ -108,6 +142,10 @@ const App = () => {
         </div>
       </div>
       <div className='right-side-nav'>
+        <div className='language-container'>
+          <button onClick={handleEnglish} className='eng-btn'></button>
+          <button onClick={handleSpanish} className='spa-btn'></button>
+        </div>
         {Object.keys(formErrors).length === 0 && isSubmit ? (<div>Registration complete</div>) : <div></div>}
         <div className='app'>
             <div className='progressBar-container'>
@@ -123,7 +161,7 @@ const App = () => {
               {count === 1 ? (
                 <>
                   <div className='form-group'>
-                    <label className='form-label'>First Name</label>
+                    <label className='form-label'>{english && 'First Name'}{spanish && 'El Primer Nombre'}</label>
                     <input 
                       type='text'
                       className='form-control'
@@ -132,9 +170,9 @@ const App = () => {
                       value={formValues.firstName}
                     />
                   </div>
-                  <p>{formErrors.firstName}</p>
+                  <p className='error-message'>{formErrors.firstName}</p>
                   <div className='form-group'>
-                    <label className='form-label'>Last Name</label>
+                    <label className='form-label'>{english && 'First Name'}{spanish && 'El Apellido'}</label>
                     <input 
                       type='text'
                       className='form-control input-control'
@@ -144,22 +182,23 @@ const App = () => {
                       value={formValues.lastName}
                     />
                   </div>  
-                  <p>{formErrors.lastName}</p>
+                  <p className='error-message'>{formErrors.lastName}</p>
                   <div className='form-group'>
-                  <GenderDropdown selected={selectedGender} setSelected={setSelectedGender}/>
+                  <GenderDropdown selected={selectedGender} setSelected={setSelectedGender} english={english} spanish={spanish}/>
                   </div>
                   <div className='form-group'>
-                    <label className='form-label'>Date of Birth</label>
+                    <label className='form-label'>{english && 'Date of Birth'}{spanish && 'Fecha de Nacimiento'}</label>
                     <input 
                       type='date'
                       className='form-control'
                       name='date'
+                      placeholder=''
                       onChange={handleChange} 
                       value={formValues.date}
                     />
                   </div> 
                   <div className='form-group'>
-                    <label className='form-label'>Phone</label>
+                    <label className='form-label'>{english && 'Phone'}{spanish && 'Teléfono'}</label>
                     <input 
                       type='tel'
                       className='form-control'
@@ -169,13 +208,14 @@ const App = () => {
                       value={formValues.phone}
                     />
                   </div> 
-                  <CountryDropdown selectedCountry={selectedCountry} setSelectedCountry={setSelectedCountry}/>
+                  <p className='error-message'>{formErrors.phone}</p>
+                  <CountryDropdown selectedCountry={selectedCountry} setSelectedCountry={setSelectedCountry} english={english} spanish={spanish}/>
                 </>      
               ): null}
             {count === 2 ? (
                 <>
                   <div className='form-group form-transition'>
-                    <label className='form-label'>Username</label>
+                    <label className='form-label'>{english && 'Username'}{spanish && 'Nombre de Usuario'}</label>
                     <input 
                       type='text'
                       className='form-control'
@@ -185,7 +225,7 @@ const App = () => {
                       value={formValues.username}
                     />
                   </div> 
-                  <p>{formErrors.username}</p>
+                  <p className='error-message'>{formErrors.username}</p>
                   <div className='form-group'>
                     <label className='form-label'>Email</label>
                     <input 
@@ -197,9 +237,9 @@ const App = () => {
                       value={formValues.email}
                     />
                   </div>
-                  <p>{formErrors.email}</p> 
+                  <p className='error-message'>{formErrors.email}</p> 
                   <div className='form-group'>
-                    <label className='form-label'>Password</label>
+                    <label className='form-label'>{english && 'Password'}{spanish && 'La Contraseña'}</label>
                     <input 
                       type='password'
                       className='form-control'
@@ -209,9 +249,9 @@ const App = () => {
                       value={formValues.password}
                     />
                   </div> 
-                  <p>{formErrors.password}</p>
+                  <p className='error-message'>{formErrors.password}</p>
                   <div className='form-group'>
-                    <label className='form-label'>Confirm Password</label>
+                    <label className='form-label'>{english && 'Confirm Password'}{spanish && 'Confirmar Contraseña'}</label>
                     <input 
                       type='password'
                       className='form-control'
@@ -221,19 +261,16 @@ const App = () => {
                       value={formValues.confirmPassword}
                     />
                   </div> 
-                  <p>{formErrors.confirmPassword}</p>
+                  <p className='error-message'>{formErrors.confirmPassword}</p>
                 </>
             ): null}
             {count === 3 ? (
               <>
                   <div className='form-group'>
-                    <label className='form-label'>Credit Card Number</label>
+                    <label className='form-label'>{english && 'Credit Card Number'}{spanish && 'Número de Tarjeta de Crédito'}</label>
                     <input 
                       type="tel" 
                       inputmode="numeric" 
-                      pattern="[0-9\s]{13,19}" 
-                      autoComplete="cc-number" 
-                      maxLength="19" 
                       placeholder="xxxx xxxx xxxx xxxx"
                       className='form-control'
                       name='creditCard'
@@ -241,12 +278,13 @@ const App = () => {
                       value={formValues.creditCard}
                     />
                 </div> 
+                <p className='error-message'>{formErrors.creditCard}</p>
                 <div className='mm-yy-dropdown-container'>
-                  <MonthDropdown selectedMonth={selectedMonth} setSelectedMonth={setSelectedMonth}/>
-                  <YearDropdown selectedYear={selectedYear} setSelectedYear={setSelectedYear}/>
+                  <MonthDropdown selectedMonth={selectedMonth} setSelectedMonth={setSelectedMonth} english={english} spanish={spanish}/>
+                  <YearDropdown selectedYear={selectedYear} setSelectedYear={setSelectedYear} english={english} spanish={spanish}/>
                 </div>
                 <div className='form-group'>
-                  <label className='form-label'>CVN</label>
+                  <label className='form-label'>CVC</label>
                   <input 
                     type='text'
                     className='form-control'
@@ -255,58 +293,59 @@ const App = () => {
                     value={formValues.cvn}
                   />
                 </div> 
+                <p className='error-message'>{formErrors.cvn}</p>
               </>
             ): null}
             {count === 4 ? (
               <div className='terms-body'>
                   <div className='terms-box'>
                   <div className='terms-text'>
-                    <h2>terms of service</h2>
-                    <p>Last Edit: 04/13/2022</p>
-                    <p>Greetings Users,</p>
-                    {terms}
+                    <h2>{english && 'terms of service'}{spanish && 'términos de servicio'}</h2>
+                    <p>{english && 'Last Edit: 07/26/2022'}{spanish && 'Última Edición: 26/07/2022'}</p>
+                    <p>{english && 'Greetings Users,'}{spanish && 'Saludos Usuarios,'}</p>
+                    {english && terms}{spanish && spanishTerms}
                   </div>
-                  <h3>I agree to the <span>Terms of Service</span> and I read the Privacy Notice.</h3>
+                  <h3>{english && 'I agree to the '}{spanish && 'Estoy de acuerdo con la'}<span>{english && 'Terms of Service'}{spanish && 'Términos de Servicio'}</span>{english && ' and I read the Privacy Notice.'}{spanish && ' y leí el Aviso de Privacidad.'}</h3>
                   <div className='terms-buttons'>
-                    {showTerms && <button className='submit-btn'>Submit</button>}
-                    <button className='btn-accept red-btn' onClick={() => setShowTerms(true)}>Accept</button>
-                    <button className='btn-decline gray-btn' onClick={() => setShowTerms(false)}>Decline</button>
+                    {showTerms && <button className='submit-btn'>{english && 'Submit'}{spanish && 'Enviar'}</button>}
+                    <button className='btn-accept red-btn' onClick={() => setShowTerms(true)}>{english && 'Accept'}{spanish && 'Aceptar'}</button>
+                    <button className='btn-decline gray-btn' onClick={() => setShowTerms(false)}>{english && 'Decline'}{spanish && 'Rechazar'}</button>
                   </div>
                 </div>
               </div>
             ): null}
             {(count === 4) ? (
               <button 
-                className='btn btn-dark btn-margin' 
+                className='btn btn-dark btn-margin btn-prev' 
                 type='submit' 
                 onClick={() => setCount(count - 1)}
                 disabled={count < 2}
               >
-                Back
+                {english && 'Back'}{spanish && 'Espalda'}
               </button>     
             ): null}
             {(count === 4 && terms === true) ? (
-              <button className='btn btn-primary' type='submit'>Submit</button>
+              <button className='btn btn-primary' type='submit'>{english && 'Submit'}{spanish && 'Enviar'}</button>
             ): null}
             </form>
             {(count > 1 && count < 4) ? (
               <button 
-                className='btn btn-dark' 
+                className='btn btn-dark btn-prev' 
                 type='submit' 
                 onClick={() => setCount(count - 1)}
                 disabled={count < 2}
               >
-                Back
+                {english && 'Back'}{spanish && 'Espalda'}
               </button>     
             ): null}
             {(count < 4) ? (
               <button 
-                className='btn btn-light' 
+                className='btn btn-light btn-next' 
                 type='submit' 
                 onClick={() => setCount(count + 1)}
                 disabled={count > 4}
               >
-                Next
+                {english && 'Next'}{spanish && 'Siguiente'}
               </button>
             ): null}
         </div>
