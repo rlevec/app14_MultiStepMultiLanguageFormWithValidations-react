@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {terms} from './termsOfService'
 import GenderDropdown from './GenderDropdown'
 import CountryDropdown from './CountryDropdown'
@@ -15,8 +15,7 @@ const App = () => {
   const [selectedMonth, setSelectedMonth] = useState('')
   const [selectedYear, setSelectedYear] = useState('')
   const [showTerms, setShowTerms] = useState(false)
-
-  const [form, setForm] = useState({
+  const initialValues = {
     firstName: '',
     lastName: '',
     date: '',
@@ -27,15 +26,19 @@ const App = () => {
     confirmPassword: '',
     creditCard: '',
     cvn: '',
-  })
+  }
+  const [formValues, setFormValues] = useState(initialValues)
+  const [formErrors, setFormErrors] = useState({})
+  const [isSubmit, setIsSubmit] = useState(false)
 
   const [data, setData] = useState([])
   console.log(data)
 
   const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value
+    const { name, value } = e.target
+    setFormValues({
+      ...formValues,
+      [name]: value
     })
   }
 
@@ -43,10 +46,57 @@ const App = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    setData([...data, form.firstName, form.lastName, form.date, form.phone, form.username, form.email, form.password, form.confirmPassword, form.creditCard, form.cvn, selectedGender, selectedCountry, selectedMonth, selectedYear, showTerms])
+    setFormErrors(validate(formValues))
+    setIsSubmit(true)
   }
 
+  
 
+  const validate = (values) => {
+    const errors = {}
+    const firstNameRegex = /^[a-zA-Z]*$/
+    const lastNameRegex = /^[a-zA-Z]*$/
+    const emailRegex = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/
+    const usernameRegex = /^([a-z0-9]|[-._](?![-._])){4,20}$/
+    if(!values.firstName) {
+      errors.firstName = 'First Name is required'
+    }
+    else if(!firstNameRegex.test(values.firstName)) {
+      errors.firstName = 'This is not a valid first name (only alphabet characters)'
+    }
+    if(!values.lastName) {
+      errors.lastName = 'Last Name is required'
+    }
+    else if(!lastNameRegex.test(values.firstName)) {
+      errors.lastName = 'This is not a valid first name (only alphabet characters)'
+    }
+    if(!values.email) {
+      errors.email = 'Email is required'
+    }
+    else if(!emailRegex.test(values.email)) {
+      errors.email = 'This is not a valid email format'
+    }
+    if(!values.password) {
+      errors.password = 'Password is required'
+    }
+    else if(!passwordRegex.test(values.password)) {
+      errors.password = 'Minimum eight and maximum 20 characters, at least one uppercase letter, one lowercase letter, one number and one special character'
+    }
+    if(!values.confirmPassword) {
+      errors.confirmPassword = 'Password is required'
+    }
+    else if((values.password !== values.confirmPassword)) {
+      errors.confirmPassword = 'Passwords do not match'
+    }
+    if(!values.username) {
+      errors.username = 'Username is required'
+    }
+    else if(!usernameRegex.test(values.username)) {
+      errors.username = 'Must have between 4 and 20 characters, must not contain anything but letters a-z, digits 0-9 and special characters -._, the special characters -._ must not be used successively in order to avoid confusion and the field must not contain whitespaces'
+    }
+    return errors
+  }
 
 
   return (
@@ -58,6 +108,7 @@ const App = () => {
         </div>
       </div>
       <div className='right-side-nav'>
+        {Object.keys(formErrors).length === 0 && isSubmit ? (<div>Registration complete</div>) : <div></div>}
         <div className='app'>
             <div className='progressBar-container'>
               <div className='progress-container'>
@@ -78,19 +129,22 @@ const App = () => {
                       className='form-control'
                       name='firstName'
                       onChange={handleChange} 
-                      value={form.firstName}
+                      value={formValues.firstName}
                     />
                   </div>
+                  <p>{formErrors.firstName}</p>
                   <div className='form-group'>
                     <label className='form-label'>Last Name</label>
                     <input 
                       type='text'
                       className='form-control input-control'
                       name='lastName'
+                      errorMessage='Last Name should contain the text only and range from 2-16 characters'
                       onChange={handleChange} 
-                      value={form.lastName}
+                      value={formValues.lastName}
                     />
-                  </div> 
+                  </div>  
+                  <p>{formErrors.lastName}</p>
                   <div className='form-group'>
                   <GenderDropdown selected={selectedGender} setSelected={setSelectedGender}/>
                   </div>
@@ -101,7 +155,7 @@ const App = () => {
                       className='form-control'
                       name='date'
                       onChange={handleChange} 
-                      value={form.date}
+                      value={formValues.date}
                     />
                   </div> 
                   <div className='form-group'>
@@ -110,8 +164,9 @@ const App = () => {
                       type='tel'
                       className='form-control'
                       name='phone'
+                      errorMessage=''
                       onChange={handleChange} 
-                      value={form.phone}
+                      value={formValues.phone}
                     />
                   </div> 
                   <CountryDropdown selectedCountry={selectedCountry} setSelectedCountry={setSelectedCountry}/>
@@ -125,40 +180,48 @@ const App = () => {
                       type='text'
                       className='form-control'
                       name='username'
+                      errorMessage=''
                       onChange={handleChange} 
-                      value={form.username}
+                      value={formValues.username}
                     />
                   </div> 
+                  <p>{formErrors.username}</p>
                   <div className='form-group'>
                     <label className='form-label'>Email</label>
                     <input 
                       type='email'
                       className='form-control'
                       name='email'
+                      errorMessage='It should be a valid email address!'
                       onChange={handleChange} 
-                      value={form.email}
+                      value={formValues.email}
                     />
-                  </div> 
+                  </div>
+                  <p>{formErrors.email}</p> 
                   <div className='form-group'>
                     <label className='form-label'>Password</label>
                     <input 
                       type='password'
                       className='form-control'
                       name='password'
+                      errorMessage='Password should be 8-12 characters and it should include at least 1 letter 1 number and 1 special character!'
                       onChange={handleChange} 
-                      value={form.password}
+                      value={formValues.password}
                     />
                   </div> 
+                  <p>{formErrors.password}</p>
                   <div className='form-group'>
                     <label className='form-label'>Confirm Password</label>
                     <input 
                       type='password'
                       className='form-control'
                       name='confirmPassword'
+                      errorMessage='Passwords do not match!'
                       onChange={handleChange} 
-                      value={form.confirmPassword}
+                      value={formValues.confirmPassword}
                     />
                   </div> 
+                  <p>{formErrors.confirmPassword}</p>
                 </>
             ): null}
             {count === 3 ? (
@@ -175,7 +238,7 @@ const App = () => {
                       className='form-control'
                       name='creditCard'
                       onChange={handleChange} 
-                      value={form.creditCard}
+                      value={formValues.creditCard}
                     />
                 </div> 
                 <div className='mm-yy-dropdown-container'>
@@ -189,7 +252,7 @@ const App = () => {
                     className='form-control'
                     name='cvn'
                     onChange={handleChange} 
-                    value={form.cvn}
+                    value={formValues.cvn}
                   />
                 </div> 
               </>
