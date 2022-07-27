@@ -9,7 +9,7 @@ import { AppContext  } from './context'
 
 
 const App = () => {
-  const { count, setCount, english, setEnglish, spanish, setSpanish, selectedGender, setSelectedGender, selectedCountry, setSelectedCountry, selectedMonth, setSelectedMonth, selectedYear, setSelectedYear, showTerms, setShowTerms, initialValues, formValues, setFormValues, formErrors, setFormErrors, isSubmit, setIsSubmit, data, setData, handleChange, handleSubmit, handleEnglish, handleSpanish} = useContext(AppContext)
+  const { count, setCount, english, spanish, selectedMonth, setSelectedMonth, selectedYear, setSelectedYear, showTerms, setShowTerms, initialValues, formValues, formErrors, isSubmit, handleChange, handleSubmit, handleEnglish, handleSpanish} = useContext(AppContext)
 
   const rightNavContainerRef = useRef(null)
   const leftNavContainerRef = useRef(null)
@@ -187,7 +187,7 @@ const App = () => {
                     <input 
                       type="tel" 
                       inputmode="numeric" 
-                      placeholder="xxxx xxxx xxxx xxxx"
+                      placeholder=""
                       className='form-control'
                       name='creditCard'
                       onChange={handleChange} 
@@ -200,7 +200,7 @@ const App = () => {
                   <YearDropdown selectedYear={selectedYear} setSelectedYear={setSelectedYear} english={english} spanish={spanish}/>
                 </div>
                 <div className='form-group'>
-                  <label className='form-label'>CVC</label>
+                  <label className='form-label'>CVV</label>
                   <input 
                     type='text'
                     className='form-control'
