@@ -224,6 +224,10 @@ button {
   background-color: #5F9EA0;
 }
 
+.submit-btn:hover {
+  opacity: 0.6;
+}
+
 
 .btn-margin {
   margin-left: -60px;
@@ -333,7 +337,7 @@ button {
 
 .circle-passive {
   background-color: #5F9EA0;
-  color: #002D62;
+  color: white;
   border-radius: 50%;
   height: 50px;
   width: 50px;
@@ -345,7 +349,7 @@ button {
 
 .circle-active {
   background-color: #002D62;
-  color: #5F9EA0;
+  color: white;
   border-radius: 50%;
   height: 50px;
   width: 50px;
@@ -407,13 +411,13 @@ input {
 
 .btn-next {
   background-color: #002D62 !important;
-  color: #5F9EA0 !important;
+  color: white !important;
   border-radius: 5px !important;
 }
 
 .btn-prev {
   background-color: #5F9EA0 !important;
-  color: #002D62 !important;
+  color: white !important;
   border-radius: 5px !important;
 }
 
@@ -429,10 +433,17 @@ input {
   background: url('https://i.imgur.com/mguyA7w.png');
   height: 40px;
   width: 70px;
+  background-size: cover;
+  border-radius: 5px;
+  border: transparent;
 }
 
 .eng-btn {
   background: url('https://i.imgur.com/SR8o28w.jpg');
   height: 40px;
   width: 70px;
+  background-size: cover;
+  border-radius: 5px;
+  border: transparent;
 }
+
