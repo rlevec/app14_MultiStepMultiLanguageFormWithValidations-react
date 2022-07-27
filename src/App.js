@@ -40,6 +40,7 @@ const App = () => {
     }
   }, [count])
 
+
   return (
     <>
      <div className='container-whole'>
@@ -183,7 +184,7 @@ const App = () => {
             {count === 3 ? (
               <>
                   <div className='form-group'>
-                    <label className='form-label'>{english && 'Credit Card Number'}{spanish && 'Número de Tarjeta de Crédito'}</label>
+                    <label className='form-label'>{english && 'Credit Card Number (AMEX)'}{spanish && 'Número de Tarjeta de Crédito (AMEX)'}</label>
                     <input 
                       type="tel" 
                       inputmode="numeric" 
