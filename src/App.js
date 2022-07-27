@@ -13,6 +13,7 @@ const App = () => {
 
   const rightNavContainerRef = useRef(null)
   const leftNavContainerRef = useRef(null)
+
  
 
 
@@ -99,7 +100,7 @@ const App = () => {
                   </div>  
                   <p className='error-message'>{formErrors.lastName}</p>
                   <div className='form-group'>
-                  <GenderDropdown />
+                  <GenderDropdown/>
                   </div>
                   <div className='form-group'>
                     <label className='form-label'>{english && 'Date of Birth'}{spanish && 'Fecha de Nacimiento'}</label>
