@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef, useContext } from 'react'
 import {terms} from './termsOfService'
 import { spanishTerms } from './termsOfSpanish'
 import GenderDropdown from './GenderDropdown'
 import CountryDropdown from './CountryDropdown'
 import MonthDropdown from './MonthDropdown'
 import YearDropdown from './YearDropdown'
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 
 const App = () => {
-
+  const rightNavContainerRef = useRef(null)
+  const leftNavContainerRef = useRef(null)
+  const [count, setCount] = useState(1)
   const [english, setEnglish] = useState(true)
   const [spanish, setSpanish] = useState(false)
   const [selectedGender, setSelectedGender] = useState('')
@@ -32,9 +33,7 @@ const App = () => {
   const [formValues, setFormValues] = useState(initialValues)
   const [formErrors, setFormErrors] = useState({})
   const [isSubmit, setIsSubmit] = useState(false)
-
   const [data, setData] = useState([])
-  console.log(data)
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -44,12 +43,13 @@ const App = () => {
     })
   }
 
-  const [count, setCount] = useState(1)
+
 
   const handleSubmit = (e) => {
     e.preventDefault()
     setFormErrors(validate(formValues))
     setIsSubmit(true)
+    setData(formValues.firstName, formValues.lastName, selectedGender, formValues.date, formValues.phone, selectedCountry, formValues.username, formValues.password, formValues.confirmPassword, formValues.creditCard, selectedMonth, selectedYear, formValues.cvn)
   }
 
   const handleEnglish = () => {
@@ -132,17 +132,20 @@ const App = () => {
     return errors
   }
 
-
+  useEffect(() => {
+    const containerHeight = rightNavContainerRef.current.getBoundingClientRect().height;
+    leftNavContainerRef.current.style.height = `${containerHeight}px`
+  }, [count])
 
   return (
     <>
      <div className='container-whole'>
-      <div className='left-side-nav'>
+      <div className='left-side-nav' ref={leftNavContainerRef}>
         <div className='image-container'>
           <img src='https://i.imgur.com/uR4AR4i.png' alt='logo' className='logo-image'/>
         </div>
       </div>
-      <div className='right-side-nav'>
+      <div className='right-side-nav' ref={rightNavContainerRef}>
         {count < 4 ? (
           <div className='language-container'>
             <button onClick={handleEnglish} className='eng-btn'></button>
