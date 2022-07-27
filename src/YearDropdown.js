@@ -1,8 +1,10 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faCaretDown} from '@fortawesome/free-solid-svg-icons'
+import { AppContext } from './context'
 
-const YearDropdown = ({selectedYear, setSelectedYear, english, spanish}) => {
+const YearDropdown = () => {
+  const {selectedYear, setSelectedYear, english, spanish} = useContext(AppContext)
   const [isActive, setIsActive] = useState(false)
   const options = ['22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32']
 

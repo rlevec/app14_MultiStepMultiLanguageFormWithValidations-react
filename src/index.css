@@ -450,3 +450,15 @@ input {
 .language-container-step4 {
   margin-left: -50px;
 }
+
+.dropdown-height {
+  height: 100px;
+}
+
+.registration-complete {
+  align-items: center;
+  font-size: 20px;
+  font-weight: 600;
+  color: #002D62;
+  margin-left: 70px;
+}

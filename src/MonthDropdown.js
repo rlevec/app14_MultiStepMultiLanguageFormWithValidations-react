@@ -1,8 +1,10 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faCaretDown} from '@fortawesome/free-solid-svg-icons'
+import { AppContext } from './context'
 
-const MonthDropdown = ({selectedMonth, setSelectedMonth, spanish, english}) => {
+const MonthDropdown = () => {
+  const {selectedMonth, setSelectedMonth, spanish, english} = useContext(AppContext)
   const [isActive, setIsActive] = useState(false)
   const options = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
 

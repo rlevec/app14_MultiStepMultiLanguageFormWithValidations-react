@@ -1,8 +1,10 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faCaretDown} from '@fortawesome/free-solid-svg-icons'
+import { AppContext } from './context'
 
-const CountryDropdown = ({selectedCountry, setSelectedCountry, spanish, english}) => {
+const CountryDropdown = () => {
+  const {selectedCountry, setSelectedCountry, spanish, english} = useContext(AppContext)
   const [isActive, setIsActive] = useState(false)
   const countryList = [
         "Afghanistan",
