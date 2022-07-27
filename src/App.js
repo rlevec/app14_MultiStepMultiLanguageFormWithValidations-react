@@ -133,6 +133,7 @@ const App = () => {
   }
 
 
+
   return (
     <>
      <div className='container-whole'>
@@ -142,10 +143,17 @@ const App = () => {
         </div>
       </div>
       <div className='right-side-nav'>
-        <div className='language-container'>
-          <button onClick={handleEnglish} className='eng-btn'></button>
-          <button onClick={handleSpanish} className='spa-btn'></button>
-        </div>
+        {count < 4 ? (
+          <div className='language-container'>
+            <button onClick={handleEnglish} className='eng-btn'></button>
+            <button onClick={handleSpanish} className='spa-btn'></button>
+          </div> ) :
+          <div className='language-container language-container-step4'>
+            <button onClick={handleEnglish} className='eng-btn'></button>
+            <button onClick={handleSpanish} className='spa-btn'></button>
+          </div>
+        }
+
         <div className='app'>
             <div className='progressBar-container'>
               <div className='progress-container'>
