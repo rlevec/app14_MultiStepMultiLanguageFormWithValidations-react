@@ -11,13 +11,12 @@ import PropagateLoader from "react-spinners/PropagateLoader";
 
 
 const App = () => {
-  const { count, setCount, english, spanish, selectedMonth, setSelectedMonth, selectedYear, setSelectedYear, showTerms, setShowTerms, initialValues, formValues, formErrors, isSubmit, handleChange, handleSubmit, handleEnglish, handleSpanish, loading, setLoading} = useContext(AppContext)
+  const { count, setCount, english, spanish, selectedMonth, setSelectedMonth, selectedYear, setSelectedYear, showTerms, setShowTerms, formValues, formErrors, isSubmit, handleChange, handleSubmit, handleEnglish, handleSpanish, loading, setLoading, selectedGender, selectedCountry, loadingStep, setLoadingStep} = useContext(AppContext)
 
   const rightNavContainerRef = useRef(null)
   const leftNavContainerRef = useRef(null)
 
-  const [loadingStep, setLoadingStep] = useState(false)
-  
+
 
   useEffect(() => {
     setLoading(true)
@@ -31,7 +30,7 @@ const App = () => {
     setLoadingStep(true)
     let timeOut = setTimeout(() => {
       setLoadingStep(false)
-    }, 3000)
+    }, 1000)
     return () => clearTimeout(timeOut)
   }, [count])
 
@@ -42,7 +41,8 @@ const App = () => {
     const containerHeight = rightNavContainerRef.current.getBoundingClientRect().height;
     leftNavContainerRef.current.style.height = `${containerHeight}px`
     if(count === 1 && formErrors) {
-      leftNavContainerRef.current.style.height = `125vh`
+      leftNavContainerRef.current.style.height = `140vh`
+      rightNavContainerRef.current.style.marginTop = `-10vh`
     }
     if(count === 2) {
       leftNavContainerRef.current.style.height = `100vh`
@@ -77,7 +77,7 @@ const App = () => {
         </div>
       </div>
       <div className='right-side-nav' ref={rightNavContainerRef}>
-        {Object.keys(formErrors).length === 0 && isSubmit && (
+        {Object.keys(formErrors).length === 0 && isSubmit &&  (
           <div className='registration-complete'>Registration Complete</div>
         )}    
         {count < 4 ? (
@@ -104,56 +104,67 @@ const App = () => {
             <form className='col-15 form' onSubmit={handleSubmit}>
               {count === 1 ? (
                 <>
-                  <div className='form-group'>
-                    <label className='form-label'>{english && 'First Name'}{spanish && 'El Primer Nombre'}</label>
-                    <input 
-                      type='text'
-                      className='form-control'
-                      name='firstName'
-                      onChange={handleChange} 
-                      value={formValues.firstName}
-                    />
-                  </div>
-                  <p className='error-message'>{formErrors.firstName}</p>
-                  <div className='form-group'>
-                    <label className='form-label'>{english && 'Last Name'}{spanish && 'El Apellido'}</label>
-                    <input 
-                      type='text'
-                      className='form-control input-control'
-                      name='lastName'
-                      errorMessage='Last Name should contain the text only and range from 2-16 characters'
-                      onChange={handleChange} 
-                      value={formValues.lastName}
-                    />
-                  </div>  
-                  <p className='error-message'>{formErrors.lastName}</p>
-                  <div className='form-group'>
-                  <GenderDropdown/>
-                  </div>
-                  <div className='form-group'>
-                    <label className='form-label'>{english && 'Date of Birth'}{spanish && 'Fecha de Nacimiento'}</label>
-                    <input 
-                      type='date'
-                      className='form-control'
-                      name='date'
-                      placeholder=''
-                      onChange={handleChange} 
-                      value={formValues.date}
-                    />
-                  </div> 
-                  <div className='form-group'>
-                    <label className='form-label'>{english && 'Phone'}{spanish && 'Teléfono'}</label>
-                    <input 
-                      type='tel'
-                      className='form-control'
-                      name='phone'
-                      errorMessage=''
-                      onChange={handleChange} 
-                      value={formValues.phone}
-                    />
-                  </div> 
-                  <p className='error-message'>{formErrors.phone}</p>
-                  <CountryDropdown />
+                { loadingStep ? (
+                  <PropagateLoader className='loader-step1' size={30} color={"#002D62"} loading={loadingStep}
+                />) : (
+                  <div>
+                    <div className='form-group'>
+                      <label className='form-label'>{english && 'First Name'}{spanish && 'El Primer Nombre'}</label>
+                      <input 
+                        placeholder='Sofia'
+                        type='text'
+                        className='form-control'
+                        name='firstName'
+                        onChange={handleChange} 
+                        value={formValues.firstName}
+                      />
+                    </div>
+                    <p className='error-message'>{formErrors.firstName}</p>
+                    <div className='form-group'>
+                      <label className='form-label'>{english && 'Last Name'}{spanish && 'El Apellido'}</label>
+                      <input 
+                        placeholder='Vergara'
+                        type='text'
+                        className='form-control input-control'
+                        name='lastName'
+                        errorMessage='Last Name should contain the text only and range from 2-16 characters'
+                        onChange={handleChange} 
+                        value={formValues.lastName}
+                      />
+                    </div>  
+                    <p className='error-message'>{formErrors.lastName}</p>
+                    <div className='form-group'>
+                    <GenderDropdown/>
+                    {(!selectedGender && isSubmit) ? <p className='error-message'>{english ? 'Pick a gender' : 'Elige un género'}</p> : null}
+                    </div>
+                    <div className='form-group'>
+                      <label className='form-label'>{english && 'Date of Birth'}{spanish && 'Fecha de Nacimiento'}</label>
+                      <input 
+                        type='date'
+                        className='form-control'
+                        name='date'
+                        placeholder='10/07/1972'
+                        onChange={handleChange} 
+                        value={formValues.date}
+                      />
+                    </div> 
+                    <p className='error-message'>{formErrors.date}</p>
+                    <div className='form-group'>
+                      <label className='form-label'>{english && 'Phone'}{spanish && 'Teléfono'}</label>
+                      <input 
+                        placeholder='00385955191714'
+                        type='tel'
+                        className='form-control'
+                        name='phone'
+                        errorMessage=''
+                        onChange={handleChange} 
+                        value={formValues.phone}
+                      />
+                    </div> 
+                    <p className='error-message'>{formErrors.phone}</p>
+                    <CountryDropdown />
+                    {(!selectedCountry && isSubmit) ? <p className='error-message'>{english ? 'Pick a country' : 'Elige un país'}</p> : null}
+                  </div>)}
                 </>      
               ): null}
             {count === 2 ? (
@@ -166,6 +177,7 @@ const App = () => {
                     <div className='form-group form-transition'>
                       <label className='form-label'>{english && 'Username'}{spanish && 'Nombre de Usuario'}</label>
                       <input 
+                        placeholder='sofia_v_222'
                         type='text'
                         className='form-control'
                         name='username'
@@ -178,6 +190,7 @@ const App = () => {
                     <div className='form-group'>
                       <label className='form-label'>Email</label>
                       <input 
+                        placeholder='sofia.vergara@gmail.com'
                         type='email'
                         className='form-control'
                         name='email'
@@ -190,6 +203,7 @@ const App = () => {
                     <div className='form-group'>
                       <label className='form-label'>{english && 'Password'}{spanish && 'La Contraseña'}</label>
                       <input 
+                        placeholder='Sofia!7111993'
                         type='password'
                         className='form-control'
                         name='password'
@@ -225,7 +239,7 @@ const App = () => {
                       <input 
                         type="tel" 
                         inputmode="numeric" 
-                        placeholder=""
+                        placeholder="375987654321001"
                         className='form-control'
                         name='creditCard'
                         onChange={handleChange} 
@@ -235,11 +249,14 @@ const App = () => {
                   <p className='error-message'>{formErrors.creditCard}</p>
                   <div className='mm-yy-dropdown-container'>
                     <MonthDropdown selectedMonth={selectedMonth} setSelectedMonth={setSelectedMonth} english={english} spanish={spanish}/>
+                    {(!selectedMonth && isSubmit) ? <p className='error-message error-message-margin'>{english ? 'Pick a month' : 'Elige un mes'}</p> : null}
                     <YearDropdown selectedYear={selectedYear} setSelectedYear={setSelectedYear} english={english} spanish={spanish}/>
+                    {(!selectedYear && isSubmit) ? <p className='error-message error-message-margin'>{english ? 'Pick a month' : 'Elige un año'}</p> : null}
                   </div>
                   <div className='form-group'>
                     <label className='form-label'>CVV</label>
                     <input 
+                      placeholder='6178'
                       type='text'
                       className='form-control'
                       name='cvn'

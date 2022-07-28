@@ -6,7 +6,7 @@ import { AppContext } from './context'
 const YearDropdown = () => {
   const {selectedYear, setSelectedYear, english, spanish} = useContext(AppContext)
   const [isActive, setIsActive] = useState(false)
-  const options = ['22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32']
+  const options = ['2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029', '2030', '2031', '2032']
 
   return (
     <div className='dropdown dropdown-style'>
