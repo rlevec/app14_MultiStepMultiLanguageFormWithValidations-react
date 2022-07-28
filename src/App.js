@@ -16,6 +16,9 @@ const App = () => {
   const rightNavContainerRef = useRef(null)
   const leftNavContainerRef = useRef(null)
 
+  const [formLoader, setFormLoader] = useState(false)
+
+
 
 
   useEffect(() => {
@@ -33,6 +36,15 @@ const App = () => {
     }, 1000)
     return () => clearTimeout(timeOut)
   }, [count])
+
+  useEffect(() => {
+    setFormLoader(true)
+    let timeOut = setTimeout(() => {
+      setFormLoader(false)
+    }, 7000)
+    return () => clearTimeout(timeOut)
+  }, [isSubmit])
+  
 
  
 
@@ -77,7 +89,7 @@ const App = () => {
         </div>
       </div>
       <div className='right-side-nav' ref={rightNavContainerRef}>
-        {Object.keys(formErrors).length === 0 && isSubmit &&  (
+        {formLoader && Object.keys(formErrors).length === 0 && isSubmit && (
           <div className='registration-complete'>Registration Complete</div>
         )}    
         {count < 4 ? (
