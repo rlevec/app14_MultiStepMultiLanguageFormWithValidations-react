@@ -89,7 +89,7 @@ const App = () => {
       </div>
       <div className='right-side-nav' ref={rightNavContainerRef}>
         {formLoader && Object.keys(formErrors).length === 0 && isSubmit && (
-          <div className='registration-complete'>Registration Complete</div>
+          <div className='registration-complete'>{english ? 'Registration Complete' : 'Registro Completo'}</div>
         )}    
         {count < 4 ? (
           <div className='language-container'>
