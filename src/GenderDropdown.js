@@ -40,7 +40,7 @@ const GenderDropdown = () => {
           </div>
         )}
         {isActive && spanish && (
-          <div className='dropdown-content'>
+          <div className='dropdown-content dropdown-height'>
               {
                 spanishOptions.map((option, index) => {
                   return (
