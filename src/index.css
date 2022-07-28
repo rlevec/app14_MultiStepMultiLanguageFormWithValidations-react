@@ -195,7 +195,7 @@ button {
 .container-whole {
   display: flex;
   align-items: center;
-  gap: 250px
+  gap: 250px;
 }
 
 .left-side-nav {
@@ -461,4 +461,10 @@ input {
   font-weight: 600;
   color: #002D62;
   margin-left: 70px;
+}
+
+
+.loader {
+  margin: 0 auto;
+  margin-top: 20%;
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useContext } from 'react'
+import React, { useEffect, useRef, useContext, useState } from 'react'
 import {terms} from './termsOfService'
 import { spanishTerms } from './termsOfSpanish'
 import GenderDropdown from './GenderDropdown'
@@ -6,13 +6,23 @@ import CountryDropdown from './CountryDropdown'
 import MonthDropdown from './MonthDropdown'
 import YearDropdown from './YearDropdown'
 import { AppContext  } from './context'
+import PropagateLoader from "react-spinners/PropagateLoader";
 
 
 const App = () => {
-  const { count, setCount, english, spanish, selectedMonth, setSelectedMonth, selectedYear, setSelectedYear, showTerms, setShowTerms, initialValues, formValues, formErrors, isSubmit, handleChange, handleSubmit, handleEnglish, handleSpanish} = useContext(AppContext)
+  const { count, setCount, english, spanish, selectedMonth, setSelectedMonth, selectedYear, setSelectedYear, showTerms, setShowTerms, initialValues, formValues, formErrors, isSubmit, handleChange, handleSubmit, handleEnglish, handleSpanish, loading, setLoading} = useContext(AppContext)
 
   const rightNavContainerRef = useRef(null)
   const leftNavContainerRef = useRef(null)
+  
+
+  useEffect(() => {
+    setLoading(true)
+    let timeOut = setTimeout(() => {
+      setLoading(false)
+    }, 3000)
+    return () => clearTimeout(timeOut)
+  }, [])
 
  
 
@@ -44,6 +54,12 @@ const App = () => {
   return (
     <>
      <div className='container-whole'>
+      {
+        loading ? (
+          <PropagateLoader className='loader' size={30} color={"#002D62"} loading={loading}
+        />) : (
+
+      <>
       <div className='left-side-nav' ref={leftNavContainerRef}>
         <div className='image-container'>
           <img src='https://i.imgur.com/uR4AR4i.png' alt='logo' className='logo-image'/>
@@ -264,6 +280,7 @@ const App = () => {
             ): null}
         </div>
       </div> 
+      </>)}
     </div>  
     </>
   )
