@@ -230,7 +230,7 @@ button {
 
 
 .btn-margin {
-  margin-left: -60px;
+  margin-left: -40px;
 }
 
 
@@ -467,4 +467,11 @@ input {
 .loader {
   margin: 0 auto;
   margin-top: 20%;
+}
+
+.loader-step1 {
+  margin: 0 auto;
+  position: fixed;
+  padding-bottom: 40px;
+  margin-left: -20px;
 }
