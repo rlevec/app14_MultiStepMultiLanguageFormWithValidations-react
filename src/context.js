@@ -6,6 +6,7 @@ const AppContext = React.createContext()
 const AppProvider = ({children}) => {
   const [loading, setLoading] = useState(false)
   const [loadingStep, setLoadingStep] = useState(false)
+  const [formLoader, setFormLoader] = useState(false)
   const [count, setCount] = useState(1)
   const [english, setEnglish] = useState(true)
   const [spanish, setSpanish] = useState(false)
@@ -132,7 +133,7 @@ const AppProvider = ({children}) => {
             {count, setCount, english, setEnglish, 
 spanish, setSpanish, selectedGender, setSelectedGender, selectedCountry, setSelectedCountry, selectedMonth, 
 setSelectedMonth, selectedYear, setSelectedYear, showTerms, setShowTerms, initialValues, formValues, setFormValues, formErrors, setFormErrors,
-isSubmit, setIsSubmit, data, setData, handleChange, handleSubmit, handleEnglish, handleSpanish, loading, setLoading, loadingStep, setLoadingStep}
+isSubmit, setIsSubmit, data, setData, handleChange, handleSubmit, handleEnglish, handleSpanish, loading, setLoading, loadingStep, setLoadingStep, formLoader, setFormLoader}
         }>{children}</AppContext.Provider>
     )
 }
