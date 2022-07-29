@@ -42,7 +42,10 @@ const AppProvider = ({children}) => {
     const handleSubmit = (e) => {
     e.preventDefault()
     setFormErrors(validate(formValues))
-    setIsSubmit(true)
+    {
+      if(Object.keys(formErrors).length === 0) setIsSubmit(true)
+      else setIsSubmit(false)
+    }
     setData(formValues.firstName, formValues.lastName, selectedGender, formValues.date, formValues.phone, selectedCountry, formValues.username, formValues.password, formValues.confirmPassword, formValues.creditCard, selectedMonth, selectedYear, formValues.cvn)
   }
 
