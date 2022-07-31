@@ -146,7 +146,7 @@ const App = () => {
                     <p className='error-message'>{formErrors.lastName}</p>
                     <div className='form-group'>
                     <GenderDropdown/>
-                    {(!selectedGender && isSubmit) ? <p className='error-message'>{english ? 'Pick a gender' : 'Elige un género'}</p> : null}
+                    {(!selectedGender) ? <p className='error-message'>{english ? 'Pick a gender' : 'Elige un género'}</p> : null}
                     </div>
                     <div className='form-group'>
                       <label className='form-label'>{english && 'Date of Birth'}{spanish && 'Fecha de Nacimiento'}</label>
@@ -174,7 +174,7 @@ const App = () => {
                     </div> 
                     <p className='error-message'>{formErrors.phone}</p>
                     <CountryDropdown />
-                    {(!selectedCountry && isSubmit) ? <p className='error-message'>{english ? 'Pick a country' : 'Elige un país'}</p> : null}
+                    {(!selectedCountry) ? <p className='error-message'>{english ? 'Pick a country' : 'Elige un país'}</p> : null}
                   </div>)}
                 </>      
               ): null}
@@ -260,9 +260,9 @@ const App = () => {
                   <p className='error-message'>{formErrors.creditCard}</p>
                   <div className='mm-yy-dropdown-container'>
                     <MonthDropdown selectedMonth={selectedMonth} setSelectedMonth={setSelectedMonth} english={english} spanish={spanish}/>
-                    {(!selectedMonth && isSubmit) ? <p className='error-message error-message-margin'>{english ? 'Pick a month' : 'Elige un mes'}</p> : null}
+                    {(!selectedMonth) ? <p className='error-message error-message-margin'>{english ? 'Pick a month' : 'Elige un mes'}</p> : null}
                     <YearDropdown selectedYear={selectedYear} setSelectedYear={setSelectedYear} english={english} spanish={spanish}/>
-                    {(!selectedYear && isSubmit) ? <p className='error-message error-message-margin'>{english ? 'Pick a month' : 'Elige un año'}</p> : null}
+                    {(!selectedYear) ? <p className='error-message error-message-margin'>{english ? 'Pick a month' : 'Elige un año'}</p> : null}
                   </div>
                   <div className='form-group'>
                     <label className='form-label'>CVV</label>
