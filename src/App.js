@@ -11,7 +11,7 @@ import PropagateLoader from "react-spinners/PropagateLoader";
 
 
 const App = () => {
-  const { count, setCount, english, spanish, selectedMonth, setSelectedMonth, selectedYear, setSelectedYear, showTerms, setShowTerms, formValues, formErrors, isSubmit, handleChange, handleSubmit, handleEnglish, handleSpanish, loading, setLoading, selectedGender, selectedCountry, loadingStep, setLoadingStep, formLoader, setFormLoader} = useContext(AppContext)
+  const { count, setCount, english, spanish, selectedMonth, setSelectedMonth, selectedYear, setSelectedYear, showTerms, setShowTerms, formValues, formErrors, setIsSubmit, isSubmit, handleChange, handleSubmit, handleEnglish, handleSpanish, loading, setLoading, selectedGender, selectedCountry, loadingStep, setLoadingStep, formLoader, setFormLoader} = useContext(AppContext)
 
   const rightNavContainerRef = useRef(null)
   const leftNavContainerRef = useRef(null)
@@ -40,9 +40,11 @@ const App = () => {
     setRegLoader(true)
     let timeOut = setTimeout(() => {
       setRegLoader(false)
+      setIsSubmit(false)
     }, 7000)
     return () => clearTimeout(timeOut)
   }, [isSubmit])
+
   
 
  
@@ -88,7 +90,7 @@ const App = () => {
         </div>
       </div>
       <div className='right-side-nav' ref={rightNavContainerRef}>
-        {Object.keys(formErrors).length === 0 && regLoader && isSubmit && (
+        {Object.keys(formErrors).length === 0 && regLoader && (
           <div className='registration-complete'>{english ? 'Registration Complete' : 'Registro Completo'}</div>
         )}    
         {count < 4 ? (
