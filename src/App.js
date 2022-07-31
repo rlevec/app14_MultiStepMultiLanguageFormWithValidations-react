@@ -11,13 +11,13 @@ import PropagateLoader from "react-spinners/PropagateLoader";
 
 
 const App = () => {
-  const { count, setCount, english, spanish, selectedMonth, setSelectedMonth, selectedYear, setSelectedYear, showTerms, setShowTerms, formValues, formErrors, setIsSubmit, isSubmit, handleChange, handleSubmit, handleEnglish, handleSpanish, loading, setLoading, selectedGender, selectedCountry, loadingStep, setLoadingStep, formLoader, setFormLoader} = useContext(AppContext)
+  const { count, setCount, english, spanish, selectedMonth, setSelectedMonth, selectedYear, setSelectedYear, showTerms, setShowTerms, formValues, formErrors, setIsSubmit, isSubmit, handleChange, handleSubmit, handleEnglish, handleSpanish, loading, setLoading, selectedGender, selectedCountry, loadingStep, setLoadingStep, regLoader, setRegLoader} = useContext(AppContext)
 
   const rightNavContainerRef = useRef(null)
   const leftNavContainerRef = useRef(null)
 
 
-  const [regLoader, setRegLoader] = useState(false)
+
 
 
   useEffect(() => {
