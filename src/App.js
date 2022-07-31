@@ -47,32 +47,34 @@ const App = () => {
 
   
 
- 
+   useEffect(() => {
+    const containerHeight = rightNavContainerRef.current.getBoundingClientRect().height;
+    leftNavContainerRef.current.style.height = `${containerHeight}vh`
+  }, [])
 
 
   useEffect(() => {
-    const containerHeight = rightNavContainerRef.current.getBoundingClientRect().height;
-    leftNavContainerRef.current.style.height = `${containerHeight}px`
-    if(count === 1 && formErrors) {
-      leftNavContainerRef.current.style.height = `140vh`
-      rightNavContainerRef.current.style.marginTop = `-10vh`
+    if(count === 1 && Object.keys(formErrors).length !== 0) {
+      leftNavContainerRef.current.style.height = `135vh`
     }
     if(count === 2) {
       leftNavContainerRef.current.style.height = `100vh`
     }
-    if(count === 2 && formErrors) {
+    if(count === 2 && Object.keys(formErrors).length !== 0) {
       leftNavContainerRef.current.style.height = `120vh`
     }
-    if(count === 3) {
+    if(count === 3 ) {
       leftNavContainerRef.current.style.height = `100vh`
     }
-    if(count === 3 && formErrors) {
+    if(count === 3 && Object.keys(formErrors).length !== 0) {
       leftNavContainerRef.current.style.height = `120vh`
     }
     if(count === 4) {
       leftNavContainerRef.current.style.height = `120vh`
     }
   }, [count])
+
+
 
 
   return (
