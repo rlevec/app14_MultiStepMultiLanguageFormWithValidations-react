@@ -1,13 +1,12 @@
 import React, { useEffect, useRef, useContext, useState } from 'react'
-import {terms} from './termsOfService'
-import { spanishTerms } from './termsOfSpanish'
+import TermsOfServiceComponent from './TermsOfServiceComponent'
 import GenderDropdown from './GenderDropdown'
 import CountryDropdown from './CountryDropdown'
 import MonthDropdown from './MonthDropdown'
 import YearDropdown from './YearDropdown'
 import { AppContext  } from './context'
 import PropagateLoader from "react-spinners/PropagateLoader";
-
+import FormInput from './FormInput'
 
 
 const App = () => {
@@ -123,29 +122,15 @@ const App = () => {
                   <PropagateLoader className='loader-step1' size={30} color={"#002D62"} loading={loadingStep}
                 />) : (
                   <div>
+                    
                     <div className='form-group'>
                       <label className='form-label'>{english && 'First Name'}{spanish && 'El Primer Nombre'}</label>
-                      <input 
-                        placeholder='Sofia'
-                        type='text'
-                        className='form-control'
-                        name='firstName'
-                        onChange={handleChange} 
-                        value={formValues.firstName}
-                      />
+                      <FormInput name='firstName' placeholder='Sofia' formValues={formValues} handleChange={handleChange} type='text'/>
                     </div>
                     <p className='error-message'>{formErrors.firstName}</p>
                     <div className='form-group'>
                       <label className='form-label'>{english && 'Last Name'}{spanish && 'El Apellido'}</label>
-                      <input 
-                        placeholder='Vergara'
-                        type='text'
-                        className='form-control input-control'
-                        name='lastName'
-                        errorMessage='Last Name should contain the text only and range from 2-16 characters'
-                        onChange={handleChange} 
-                        value={formValues.lastName}
-                      />
+                      <FormInput name='lastName' placeholder='Vergara' formValues={formValues} handleChange={handleChange} type='text'/>
                     </div>  
                     <p className='error-message'>{formErrors.lastName}</p>
                     <div className='form-group'>
@@ -154,27 +139,12 @@ const App = () => {
                     </div>
                     <div className='form-group'>
                       <label className='form-label'>{english && 'Date of Birth'}{spanish && 'Fecha de Nacimiento'}</label>
-                      <input 
-                        type='date'
-                        className='form-control'
-                        name='date'
-                        placeholder='10/07/1972'
-                        onChange={handleChange} 
-                        value={formValues.date}
-                      />
+                      <FormInput name='date' placeholder='10/07/1972' formValues={formValues} handleChange={handleChange} type='text'/>  
                     </div> 
-                    <p className='error-message'>{formErrors.date}</p>
+                    <p className='error-message'>{formErrors.date}</p>  
                     <div className='form-group'>
                       <label className='form-label'>{english && 'Phone'}{spanish && 'Teléfono'}</label>
-                      <input 
-                        placeholder='00385955191714'
-                        type='tel'
-                        className='form-control'
-                        name='phone'
-                        errorMessage=''
-                        onChange={handleChange} 
-                        value={formValues.phone}
-                      />
+                      <FormInput name='phone' placeholder='00385955191714' formValues={formValues} handleChange={handleChange} type='tel'/>
                     </div> 
                     <p className='error-message'>{formErrors.phone}</p>
                     <CountryDropdown />
@@ -191,53 +161,22 @@ const App = () => {
                     
                     <div className='form-group form-transition'>
                       <label className='form-label'>{english && 'Username'}{spanish && 'Nombre de Usuario'}</label>
-                      <input 
-                        placeholder='sofia_v_222'
-                        type='text'
-                        className='form-control'
-                        name='username'
-                        errorMessage=''
-                        onChange={handleChange} 
-                        value={formValues.username}
-                      />
+                      <FormInput name='username' placeholder='sofia_v_222' formValues={formValues} handleChange={handleChange} type='text'/>
                     </div> 
                     <p className='error-message'>{formErrors.username}</p>
                     <div className='form-group'>
                       <label className='form-label'>Email</label>
-                      <input 
-                        placeholder='sofia.vergara@gmail.com'
-                        type='email'
-                        className='form-control'
-                        name='email'
-                        errorMessage='It should be a valid email address!'
-                        onChange={handleChange} 
-                        value={formValues.email}
-                      />
+                      <FormInput name='email' placeholder='sofia.vergara@gmail.com' formValues={formValues} handleChange={handleChange} type='email'/>
                     </div>
                     <p className='error-message'>{formErrors.email}</p> 
                     <div className='form-group'>
                       <label className='form-label'>{english && 'Password'}{spanish && 'La Contraseña'}</label>
-                      <input 
-                        placeholder='Sofia!7111993'
-                        type='password'
-                        className='form-control'
-                        name='password'
-                        errorMessage='Password should be 8-12 characters and it should include at least 1 letter 1 number and 1 special character!'
-                        onChange={handleChange} 
-                        value={formValues.password}
-                      />
+                      <FormInput name='password' placeholder='Sofia!7111993' formValues={formValues} handleChange={handleChange} type='password'/>
                     </div> 
                     <p className='error-message'>{formErrors.password}</p>
                     <div className='form-group'>
                       <label className='form-label'>{english && 'Confirm Password'}{spanish && 'Confirmar Contraseña'}</label>
-                      <input 
-                        type='password'
-                        className='form-control'
-                        name='confirmPassword'
-                        errorMessage='Passwords do not match!'
-                        onChange={handleChange} 
-                        value={formValues.confirmPassword}
-                      />
+                      <FormInput name='confirmPassword' placeholder='' formValues={formValues} handleChange={handleChange} type='password'/>
                     </div> 
                     <p className='error-message'>{formErrors.confirmPassword}</p>
                   </div>)}
@@ -251,15 +190,7 @@ const App = () => {
                   <div>
                     <div className='form-group'>
                       <label className='form-label'>{english && 'Credit Card Number (AMEX)'}{spanish && 'Número de Tarjeta de Crédito (AMEX)'}</label>
-                      <input 
-                        type="tel" 
-                        inputmode="numeric" 
-                        placeholder="375987654321001"
-                        className='form-control'
-                        name='creditCard'
-                        onChange={handleChange} 
-                        value={formValues.creditCard}
-                      />
+                      <FormInput name='creditCard' placeholder='375987654321001' formValues={formValues} handleChange={handleChange} type='tel'/>
                   </div> 
                   <p className='error-message'>{formErrors.creditCard}</p>
                   <div className='mm-yy-dropdown-container'>
@@ -270,14 +201,7 @@ const App = () => {
                   </div>
                   <div className='form-group'>
                     <label className='form-label'>CVV</label>
-                    <input 
-                      placeholder='6178'
-                      type='text'
-                      className='form-control'
-                      name='cvn'
-                      onChange={handleChange} 
-                      value={formValues.cvn}
-                    />
+                    <FormInput name='cvn' placeholder='6178' formValues={formValues} handleChange={handleChange} type='text'/>
                   </div> 
                   <p className='error-message'>{formErrors.cvn}</p>
                 </div>)}
@@ -288,22 +212,8 @@ const App = () => {
               { loadingStep ? (
                   <PropagateLoader className='loader-step1' size={30} color={"#002D62"} loading={loadingStep}
                 />) : (
-                <div className='terms-body'>
-                    <div className='terms-box'>
-                    <div className='terms-text'>
-                      <h2>{english && 'terms of service'}{spanish && 'términos de servicio'}</h2>
-                      <p>{english && 'Last Edit: 07/26/2022'}{spanish && 'Última Edición: 26/07/2022'}</p>
-                      <p>{english && 'Greetings Users,'}{spanish && 'Saludos Usuarios,'}</p>
-                      {english && terms}{spanish && spanishTerms}
-                    </div>
-                    <h3>{english && 'I agree to the '}{spanish && 'Estoy de acuerdo con la'}<span>{english && 'Terms of Service'}{spanish && 'Términos de Servicio'}</span>{english && ' and I read the Privacy Notice.'}{spanish && ' y leí el Aviso de Privacidad.'}</h3>
-                    <div className='terms-buttons'>
-                      {showTerms && count===4 && <button type='submit' className='submit-btn'>{english && 'Submit'}{spanish && 'Enviar'}</button>}
-                      <button className='btn-accept red-btn' onClick={() => setShowTerms(true)}>{english && 'Accept'}{spanish && 'Aceptar'}</button>
-                      <button className='btn-decline gray-btn' onClick={() => setShowTerms(false)}>{english && 'Decline'}{spanish && 'Rechazar'}</button>
-                    </div>
-                  </div>
-                </div>)}
+                  <TermsOfServiceComponent />
+                )}
               </>
             ): null}
             {(count === 4) ? (
