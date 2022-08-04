@@ -7,6 +7,8 @@ import YearDropdown from './YearDropdown'
 import { AppContext  } from './context'
 import PropagateLoader from "react-spinners/PropagateLoader";
 import FormInput from './FormInput'
+import formJson from './sampleData.json'
+console.log(formJson)
 
 
 const App = () => {
@@ -124,29 +126,21 @@ const App = () => {
                   <div>
                     
                     <div className='form-group'>
-                      <label className='form-label'>{english && 'First Name'}{spanish && 'El Primer Nombre'}</label>
-                      <FormInput name='firstName' placeholder='Sofia' formValues={formValues} handleChange={handleChange} type='text'/>
+                      <FormInput label={english ? 'First Name' : 'El Primer Nombre'} name='firstName' placeholder='Sofia' formValues={formValues.firstName} handleChange={handleChange} type='text' formErrors={formErrors.firstName}/>
                     </div>
-                    <p className='error-message'>{formErrors.firstName}</p>
                     <div className='form-group'>
-                      <label className='form-label'>{english && 'Last Name'}{spanish && 'El Apellido'}</label>
-                      <FormInput name='lastName' placeholder='Vergara' formValues={formValues} handleChange={handleChange} type='text'/>
-                    </div>  
-                    <p className='error-message'>{formErrors.lastName}</p>
+                      <FormInput label={english ? 'Last Name' : 'El Apellido'} name='lastName' placeholder='Vergara' formValues={formValues.lastName} handleChange={handleChange} type='text' formErrors={formErrors.lastName}/>
+                    </div> 
                     <div className='form-group'>
                     <GenderDropdown/>
                     {(!selectedGender) ? <p className='error-message'>{english ? 'Pick a gender' : 'Elige un género'}</p> : null}
                     </div>
                     <div className='form-group'>
-                      <label className='form-label'>{english && 'Date of Birth'}{spanish && 'Fecha de Nacimiento'}</label>
-                      <FormInput name='date' placeholder='10/07/1972' formValues={formValues} handleChange={handleChange} type='text'/>  
+                      <FormInput label={english ? 'Date of Birth' : 'Fecha de Nacimiento'} name='date' type='date' placeholder='10/07/1972' formValues={formValues.date} handleChange={handleChange} formErrors={formErrors.date}/>  
                     </div> 
-                    <p className='error-message'>{formErrors.date}</p>  
                     <div className='form-group'>
-                      <label className='form-label'>{english && 'Phone'}{spanish && 'Teléfono'}</label>
-                      <FormInput name='phone' placeholder='00385955191714' formValues={formValues} handleChange={handleChange} type='tel'/>
+                      <FormInput label={english ? 'Phone' : 'Teléfono'} name='phone' placeholder='00385955191714' formValues={formValues.phone} handleChange={handleChange} type='tel' formErrors={formErrors.phone}/>
                     </div> 
-                    <p className='error-message'>{formErrors.phone}</p>
                     <CountryDropdown />
                     {(!selectedCountry) ? <p className='error-message'>{english ? 'Pick a country' : 'Elige un país'}</p> : null}
                   </div>)}
@@ -160,25 +154,17 @@ const App = () => {
                   <div>
                     
                     <div className='form-group form-transition'>
-                      <label className='form-label'>{english && 'Username'}{spanish && 'Nombre de Usuario'}</label>
-                      <FormInput name='username' placeholder='sofia_v_222' formValues={formValues} handleChange={handleChange} type='text'/>
+                      <FormInput label={english ? 'Username' : 'Nombre de Usuario'} name='username' placeholder='sofia_v_222' formValues={formValues.username} handleChange={handleChange} type='text' formErrors={formErrors.username}/>
                     </div> 
-                    <p className='error-message'>{formErrors.username}</p>
                     <div className='form-group'>
-                      <label className='form-label'>Email</label>
-                      <FormInput name='email' placeholder='sofia.vergara@gmail.com' formValues={formValues} handleChange={handleChange} type='email'/>
+                      <FormInput label='Email' name='email' placeholder='sofia.vergara@gmail.com' formValues={formValues.email} handleChange={handleChange} type='email' formErrors={formErrors.email}/>
                     </div>
-                    <p className='error-message'>{formErrors.email}</p> 
                     <div className='form-group'>
-                      <label className='form-label'>{english && 'Password'}{spanish && 'La Contraseña'}</label>
-                      <FormInput name='password' placeholder='Sofia!7111993' formValues={formValues} handleChange={handleChange} type='password'/>
+                      <FormInput label={english ? 'Password' : 'La Contraseña'} name='password' placeholder='Sofia!7111993' formValues={formValues.password} handleChange={handleChange} type='password' formErrors={formErrors.password}/>
                     </div> 
-                    <p className='error-message'>{formErrors.password}</p>
                     <div className='form-group'>
-                      <label className='form-label'>{english && 'Confirm Password'}{spanish && 'Confirmar Contraseña'}</label>
-                      <FormInput name='confirmPassword' placeholder='' formValues={formValues} handleChange={handleChange} type='password'/>
-                    </div> 
-                    <p className='error-message'>{formErrors.confirmPassword}</p>
+                      <FormInput label={english ? 'Confirm Password' : 'Confirmar Contraseña'} name='confirmPassword' placeholder='' formValues={formValues.confirmPassword} handleChange={handleChange} type='password' formErrors={formErrors.confirmPassword}/>
+                    </div>
                   </div>)}
                 </>
             ): null}
@@ -189,10 +175,8 @@ const App = () => {
                 />) : (
                   <div>
                     <div className='form-group'>
-                      <label className='form-label'>{english && 'Credit Card Number (AMEX)'}{spanish && 'Número de Tarjeta de Crédito (AMEX)'}</label>
-                      <FormInput name='creditCard' placeholder='375987654321001' formValues={formValues} handleChange={handleChange} type='tel'/>
+                      <FormInput label={english ? 'Credit Card Number (AMEX)' : 'Número de Tarjeta de Crédito (AMEX)'} name='creditCard' placeholder='375987654321001' formValues={formValues.creditCard} handleChange={handleChange} type='tel' formErrors={formErrors.creditCard}/>
                   </div> 
-                  <p className='error-message'>{formErrors.creditCard}</p>
                   <div className='mm-yy-dropdown-container'>
                     <MonthDropdown selectedMonth={selectedMonth} setSelectedMonth={setSelectedMonth} english={english} spanish={spanish}/>
                     {(!selectedMonth) ? <p className='error-message error-message-margin'>{english ? 'Pick a month' : 'Elige un mes'}</p> : null}
@@ -200,10 +184,8 @@ const App = () => {
                     {(!selectedYear) ? <p className='error-message error-message-margin'>{english ? 'Pick a month' : 'Elige un año'}</p> : null}
                   </div>
                   <div className='form-group'>
-                    <label className='form-label'>CVV</label>
-                    <FormInput name='cvn' placeholder='6178' formValues={formValues} handleChange={handleChange} type='text'/>
+                    <FormInput label='CVV' name='cvn' placeholder='6178' formValues={formValues.cvn} handleChange={handleChange} type='text' formErrors={formErrors.cvn}/>
                   </div> 
-                  <p className='error-message'>{formErrors.cvn}</p>
                 </div>)}
               </>
             ): null}
